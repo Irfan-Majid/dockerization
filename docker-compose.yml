@@ -1,0 +1,50 @@
+services:
+  backend:
+    container_name: bulk-carrier-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: bulk-carrier-backend:prod
+    env_file:
+      - ./backend/.env
+    ports:
+      - "127.0.0.1:8000:8000"
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    working_dir: /var/www/html
+    command: ["php","artisan","serve","--host=0.0.0.0","--port=8000"]
+    volumes:
+      - ./backend/storage:/var/www/html/storage
+    networks:
+      - bulk-carrier-network
+
+  frontend:
+    container_name: bulk-carrier-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: bulk-carrier-frontend:prod
+    ports:
+      - "127.0.0.1:3000:3000"
+    networks:
+      - bulk-carrier-network
+
+networks:
+  bulk-carrier-network:
+    name: bulk-carrier-network
+    driver: bridge
+
+# Notes:
+# - Services only `expose` ports to the Docker network, not publish to all host interfaces.
+# - For the host Nginx to reach the containers, publish loopback ports (bind to 127.0.0.1)
+#   by adding these `ports:` entries to the services above, for example:
+#
+#   backend:
+#     ports:
+#       - "127.0.0.1:8000:8000"
+#
+#   frontend:
+#     ports:
+#       - "127.0.0.1:3000:3000"
+

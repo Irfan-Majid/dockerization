@@ -1,0 +1,897 @@
+hostnamectl
+ Static hostname: ip-17*-**-12-**5.ap-south-1.compute.internal
+       Icon name: computer-vm
+         Chassis: vm 🖴
+      Machine ID: ec208ad3674a17785217ca962873afac
+         Boot ID: e47616fd883a41fcb3b726127eed96c3
+  Virtualization: xen
+Operating System: Rocky Linux 9.7 (Blue Onyx)
+     CPE OS Name: cpe:/o:rocky:rocky:9::baseos
+          Kernel: Linux 5.14.0-611.49.1.el9_7.x86_64
+    Architecture: x86-64
+ Hardware Vendor: Xen
+  Hardware Model: HVM domU
+Firmware Version: 4.11.amazon
+
+
+uname -a
+Linux ip-17*-**-12-**5.ap-south-1.compute.internal 5.14.0-611.49.1.el9_7.x86_64 #1 SMP PREEMPT_DYNAMIC Thu Apr 23 13:13:41 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+
+cat /etc/os-release
+NAME="Rocky Linux"
+VERSION="9.7 (Blue Onyx)"
+ID="rocky"
+ID_LIKE="rhel centos fedora"
+VERSION_ID="9.7"
+PLATFORM_ID="platform:el9"
+PRETTY_NAME="Rocky Linux 9.7 (Blue Onyx)"
+ANSI_COLOR="0;32"
+LOGO="fedora-logo-icon"
+CPE_NAME="cpe:/o:rocky:rocky:9::baseos"
+HOME_URL="https://rockylinux.org/"
+VENDOR_NAME="RESF"
+VENDOR_URL="https://resf.org/"
+BUG_REPORT_URL="https://bugs.rockylinux.org/"
+SUPPORT_END="2032-05-31"
+ROCKY_SUPPORT_PRODUCT="Rocky-Linux-9"
+ROCKY_SUPPORT_PRODUCT_VERSION="9.7"
+REDHAT_SUPPORT_PRODUCT="Rocky Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="9.7"
+
+
+
+[madina@ip-17*-**-12-**5 ~]$ uptime
+ 16:53:42 up 3 min,  1 user,  load average: 1.03, 0.59, 0.25
+
+
+ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        4.0M     0  4.0M   0% /dev
+tmpfs           1.8G     0  1.8G   0% /dev/shm
+tmpfs           731M  8.7M  722M   2% /run
+/dev/xvda4       49G   29G   21G  58% /
+/dev/xvda3      833M  631M  203M  76% /boot
+/dev/xvda2       99M  2.5M   96M   3% /efi
+tmpfs           366M     0  366M   0% /run/user/0
+tmpfs           366M     0  366M   0% /run/user/1001
+
+
+free -h
+               total        used        free      shared  buff/cache   available
+Mem:           3.6Gi       1.1Gi       1.9Gi        10Mi       878Mi       2.5Gi
+Swap:             0B          0B          0B
+
+
+[madina@ip-17*-**-12-**5 ~]$ systemctl list-units --type=service --state=running
+  UNIT                       LOAD   ACTIVE SUB     DESCRIPTION
+  auditd.service             loaded active running Security Auditing Service
+  chronyd.service            loaded active running NTP client/server
+  containerd.service         loaded active running containerd container runtime
+  crond.service              loaded active running Command Scheduler
+  dbus-broker.service        loaded active running D-Bus System Message Bus
+  docker.service             loaded active running Docker Application Container Engine
+  fail2ban.service           loaded active running Fail2Ban Service
+  firewalld.service          loaded active running firewalld - dynamic firewall daemon
+  getty@tty1.service         loaded active running Getty on tty1
+  gssproxy.service           loaded active running GSSAPI Proxy Daemon
+  irqbalance.service         loaded active running irqbalance daemon
+  mysqld.service             loaded active running MySQL 8.0 database server
+  NetworkManager.service     loaded active running Network Manager
+  nginx.service              loaded active running The nginx HTTP and reverse proxy server
+  php-fpm.service            loaded active running The PHP FastCGI Process Manager
+  polkit.service             loaded active running Authorization Manager
+  redis.service              loaded active running Redis persistent key-value database
+  rngd.service               loaded active running Hardware RNG Entropy Gatherer Daemon
+  rpcbind.service            loaded active running RPC Bind
+  rsyslog.service            loaded active running System Logging Service
+  serial-getty@ttyS0.service loaded active running Serial Getty on ttyS0
+  sshd.service               loaded active running OpenSSH server daemon
+  supervisord.service        loaded active running Supervisor daemon
+  systemd-journald.service   loaded active running Journal Service
+  systemd-logind.service     loaded active running User Login Management
+  systemd-udevd.service      loaded active running Rule-based Manager for Device Events and Files
+  user@0.service             loaded active running User Manager for UID 0
+  user@1001.service          loaded active running User Manager for UID 1001
+
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+28 loaded units listed.
+[madina@ip-17*-**-12-**5 ~]$
+
+[madina@ip-17*-**-12-**5 ~]$ systemctl list-unit-files --type=service | grep enabled
+auditd.service                             enabled         enabled
+chronyd.service                            enabled         enabled
+cloud-config.service                       enabled         disabled
+cloud-final.service                        enabled         disabled
+cloud-init-local.service                   enabled         disabled
+cloud-init.service                         enabled         disabled
+crond.service                              enabled         enabled
+dbus-broker.service                        enabled         enabled
+docker.service                             enabled         disabled
+fail2ban.service                           enabled         disabled
+firewalld.service                          enabled         enabled
+getty@.service                             enabled         enabled
+irqbalance.service                         enabled         enabled
+kdump.service                              enabled         enabled
+mdmonitor.service                          enabled         enabled
+microcode.service                          enabled         enabled
+mysqld.service                             enabled         disabled
+NetworkManager-dispatcher.service          enabled         enabled
+NetworkManager-wait-online.service         enabled         disabled
+NetworkManager.service                     enabled         enabled
+nginx.service                              enabled         disabled
+nis-domainname.service                     enabled         enabled
+qemu-guest-agent.service                   enabled         enabled
+redis.service                              enabled         disabled
+rngd.service                               enabled         enabled
+rpcbind.service                            enabled         enabled
+rsyslog.service                            enabled         enabled
+selinux-autorelabel-mark.service           enabled         enabled
+sshd.service                               enabled         enabled
+sssd.service                               enabled         enabled
+supervisord.service                        enabled         disabled
+systemd-boot-update.service                enabled         enabled
+systemd-network-generator.service          enabled         enabled
+systemd-pstore.service                     enabled         enabled
+systemd-remount-fs.service                 enabled-runtime disabled
+udisks2.service                            enabled         enabled
+[madina@ip-17*-**-12-**5 ~]$
+
+
+ sudo ss -tulpn
+[sudo] password for madina:
+Netid  State   Recv-Q  Send-Q   Local Address:Port     Peer Address:Port  Process
+udp    UNCONN  0       0              0.0.0.0:111           0.0.0.0:*      users:(("rpcbind",pid=686,fd=5),("systemd",pid=1,fd=33))
+udp    UNCONN  0       0            127.0.0.1:323           0.0.0.0:*      users:(("chronyd",pid=729,fd=5))
+udp    UNCONN  0       0                 [::]:111              [::]:*      users:(("rpcbind",pid=686,fd=7),("systemd",pid=1,fd=35))
+udp    UNCONN  0       0                [::1]:323              [::]:*      users:(("chronyd",pid=729,fd=6))
+tcp    LISTEN  0       151            0.0.0.0:3306          0.0.0.0:*      users:(("mysqld",pid=938,fd=23))
+tcp    LISTEN  0       511            0.0.0.0:6379          0.0.0.0:*      users:(("redis-server",pid=991,fd=6))
+tcp    LISTEN  0       128            0.0.0.0:22            0.0.0.0:*      users:(("sshd",pid=994,fd=3))
+tcp    LISTEN  0       4096           0.0.0.0:111           0.0.0.0:*      users:(("rpcbind",pid=686,fd=4),("systemd",pid=1,fd=31))
+tcp    LISTEN  0       511            0.0.0.0:80            0.0.0.0:*      users:(("nginx",pid=1013,fd=6),("nginx",pid=1012,fd=6),("nginx",pid=1008,fd=6))
+tcp    LISTEN  0       511               [::]:6379             [::]:*      users:(("redis-server",pid=991,fd=7))
+tcp    LISTEN  0       128               [::]:22               [::]:*      users:(("sshd",pid=994,fd=4))
+tcp    LISTEN  0       4096              [::]:111              [::]:*      users:(("rpcbind",pid=686,fd=6),("systemd",pid=1,fd=34))
+tcp    LISTEN  0       511               [::]:80               [::]:*      users:(("nginx",pid=1013,fd=7),("nginx",pid=1012,fd=7),("nginx",pid=1008,fd=7))
+tcp    LISTEN  0       70        
+
+
+rpm -qa | less
+
+
+
+ rpm -qa | grep php
+rpm -qa | grep mysql
+rpm -qa | grep redis
+rpm -qa | grep docker
+rpm -qa | grep node
+oniguruma5php-6.9.10-1.el9.remi.x86_64
+gd3php-2.3.3-9.el9.remi.x86_64
+php-fedora-autoloader-1.0.1-7.el9.noarch
+php-nikic-php-parser4-4.18.0-1.el9.noarch
+php-pear-1.10.14-1.el9.noarch
+php-common-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-cli-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-mbstring-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-pdo-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-xml-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-intl-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-pecl-zip-1.22.8-1.module_php.8.2.el9.remi.x86_64
+php-process-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-devel-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-mysqlnd-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-bcmath-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-gd-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-sodium-8.2.30-1.module_php.8.2.el9.remi.x86_64
+php-fpm-8.2.30-1.module_php.8.2.el9.remi.x86_64
+mysql80-community-release-el9-1.noarch
+mysql-common-8.0.45-1.el9_7.x86_64
+mysql-8.0.45-1.el9_7.x86_64
+mysql-errmsg-8.0.45-1.el9_7.x86_64
+mysql-selinux-1.0.14-1.el9_6.noarch
+mysql-server-8.0.45-1.el9_7.x86_64
+php-mysqlnd-8.2.30-1.module_php.8.2.el9.remi.x86_64
+redis-6.2.20-3.el9_7.x86_64
+docker-buildx-plugin-0.33.0-1.el9.x86_64
+docker-compose-plugin-5.1.3-1.el9.x86_64
+docker-ce-cli-29.4.2-2.el9.x86_64
+docker-ce-rootless-extras-29.4.2-2.el9.x86_64
+docker-ce-29.4.2-2.el9.x86_64
+nodejs-18.20.8-1nodesource.x86_64
+[madina@ip-17*-**-12-**5 ~]$
+
+
+docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[madina@ip-17*-**-12-**5 ~]$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[madina@ip-17*-**-12-**5 ~]$ docker images
+                                                   i Info →   U  In Use
+IMAGE                  ID             DISK USAGE   CONTENT SIZE   EXTRA
+bulk-carrier-backend:prod
+                       e5df3e9c6763       1.29GB          338MB
+[madina@ip-17*-**-12-**5 ~]$
+
+docker images
+                                                   i Info →   U  In Use
+IMAGE                  ID             DISK USAGE   CONTENT SIZE   EXTRA
+bulk-carrier-backend:prod
+                       e5df3e9c6763       1.29GB          338MB
+[madina@ip-17*-**-12-**5 ~]$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+fac7bb1c53bd   bridge    bridge    local
+08a7723c8720   host      host      local
+4c74e1a76ded   none      null      local
+[madina@ip-17*-**-12-**5 ~]$
+
+ocker volume ls
+DRIVER    VOLUME NAME
+
+5 ~]$ find / -name "docker-compose.yml" 2>/dev/null
+/var/www/madina-bulk-erp/docker-compose.yml
+
+
+ls -la /var/www
+ls -la /home
+ls -la /opt
+total 12
+drwxr-xr-x.  6 root   root    107 May  5 11:39 .
+drwxr-xr-x. 20 root   root   4096 Jul 14  2025 ..
+drwxr-xr-x.  2 root   root      6 Dec 23 10:31 cgi-bin
+-rwxr-xr-x.  1 root   root    676 May  5 11:56 deploy.sh
+drwxr-xr-x.  4 root   root     70 Dec 23 10:31 html
+drwxr-xr-x.  6 madina madina  140 May 16 11:58 madina-bulk-erp
+drwxr-xr-x. 13 apache apache 4096 Mar  3 14:12 tracker.madinamaritime.com
+total 8
+drwxr-xr-x.  4 root   root     33 Apr 22 13:12 .
+drwxr-xr-x. 22 root   root   4096 Apr 22 10:54 ..
+drwx------.  6 madina madina  170 May 23 16:59 madina
+drwx------.  6 rocky  rocky  4096 Apr 20 12:18 rocky
+total 4
+drwxr-xr-x.  4 root root   36 May  4 14:54 .
+drwxr-xr-x. 22 root root 4096 Apr 22 10:54 ..
+drwx--x--x.  4 root root   28 May  4 14:54 containerd
+drwxr-xr-x.  3 root root   20 Jan  6 13:35 remi
+[madina@ip-17*-**-12-**5 ~]$
+ ls /etc/httpd/conf.d
+backend.madinamaritime.com
+backend.madinamaritime.com.conf
+backend.madinamaritime.com-le-ssl.conf
+erp.madinamaritime.com.conf
+erp.madinamaritime.com-le-ssl.conf
+php.conf
+README
+tracker.madinamaritime.com.conf
+[madina@ip-17*-**-12-**5 ~]$
+
+
+ nginx -v
+nginx version: nginx/1.20.1
+[madina@ip-17*-**-12-**5 ~]$
+
+
+nginx -T
+nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (13: Permission denied)
+2026/05/23 17:02:55 [warn] 368751#368751: the "user" directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:5
+2026/05/23 17:02:55 [warn] 368751#368751: conflicting server name "_" on 0.0.0.0:80, ignored
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+2026/05/23 17:02:55 [emerg] 368751#368751: open() "/run/nginx.pid" failed (13: Permission denied)
+nginx: configuration file /etc/nginx/nginx.conf test failed
+[madina@ip-17*-**-12-**5 ~]$
+
+
+ php -v
+php -m
+php --ini
+PHP 8.2.30 (cli) (built: Dec 16 2025 17:18:12) (NTS gcc x86_64)
+Copyright (c) The PHP Group
+Zend Engine v4.2.30, Copyright (c) Zend Technologies
+[PHP Modules]
+bcmath
+bz2
+calendar
+Core
+ctype
+curl
+date
+dom
+exif
+fileinfo
+filter
+ftp
+gd
+gettext
+hash
+iconv
+intl
+json
+libxml
+mbstring
+mysqli
+mysqlnd
+openssl
+pcntl
+pcre
+PDO
+pdo_mysql
+pdo_sqlite
+Phar
+posix
+random
+readline
+redis
+Reflection
+session
+shmop
+SimpleXML
+sockets
+sodium
+SPL
+sqlite3
+standard
+sysvmsg
+sysvsem
+sysvshm
+tokenizer
+xml
+xmlreader
+xmlwriter
+xsl
+zip
+zlib
+
+[Zend Modules]
+
+Configuration File (php.ini) Path: /etc
+Loaded Configuration File:         /etc/php.ini
+Scan for additional .ini files in: /etc/php.d
+Additional .ini files parsed:      /etc/php.d/20-bcmath.ini,
+/etc/php.d/20-bz2.ini,
+/etc/php.d/20-calendar.ini,
+/etc/php.d/20-ctype.ini,
+/etc/php.d/20-curl.ini,
+/etc/php.d/20-dom.ini,
+/etc/php.d/20-exif.ini,
+/etc/php.d/20-fileinfo.ini,
+/etc/php.d/20-ftp.ini,
+/etc/php.d/20-gd.ini,
+/etc/php.d/20-gettext.ini,
+/etc/php.d/20-iconv.ini,
+/etc/php.d/20-intl.ini,
+/etc/php.d/20-mbstring.ini,
+/etc/php.d/20-mysqlnd.ini,
+/etc/php.d/20-pdo.ini,
+/etc/php.d/20-phar.ini,
+/etc/php.d/20-posix.ini,
+/etc/php.d/20-redis.ini,
+/etc/php.d/20-shmop.ini,
+/etc/php.d/20-simplexml.ini,
+/etc/php.d/20-sockets.ini,
+/etc/php.d/20-sodium.ini,
+/etc/php.d/20-sqlite3.ini,
+/etc/php.d/20-sysvmsg.ini,
+/etc/php.d/20-sysvsem.ini,
+/etc/php.d/20-sysvshm.ini,
+/etc/php.d/20-tokenizer.ini,
+/etc/php.d/20-xml.ini,
+/etc/php.d/20-xmlwriter.ini,
+/etc/php.d/20-xsl.ini,
+/etc/php.d/30-mysqli.ini,
+/etc/php.d/30-pdo_mysql.ini,
+/etc/php.d/30-pdo_sqlite.ini,
+/etc/php.d/30-xmlreader.ini,
+/etc/php.d/30-zip.ini
+
+[madina@ip-17*-**-12-**5
+
+
+[madina@ip-17*-**-12-**5 ~]$ systemctl status php-fpm
+● php-fpm.service - The PHP FastCGI Process Manager
+     Loaded: loaded (/usr/lib/systemd/system/php-fpm.service; disabled>
+     Active: active (running) since Sat 2026-05-23 16:50:38 +06; 13min>
+   Main PID: 826 (php-fpm)
+     Status: "Processes active: 0, idle: 5, Requests: 0, slow: 0, Traf>
+      Tasks: 6 (limit: 22835)
+     Memory: 36.7M (peak: 36.9M)
+        CPU: 109ms
+     CGroup: /system.slice/php-fpm.service
+             ├─826 "php-fpm: master process (/etc/php-fpm.conf)"
+             ├─942 "php-fpm: pool www"
+             ├─943 "php-fpm: pool www"
+             ├─944 "php-fpm: pool www"
+             ├─946 "php-fpm: pool www"
+             └─947 "php-fpm: pool www"
+
+May 23 16:50:38 ip-17*-**-12-**5.ap-south-1.compu
+
+
+
+systemctl status mysqld
+mysql --version
+● mysqld.service - MySQL 8.0 database server
+     Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; >
+     Active: active (running) since Sat 2026-05-23 16:50:41 +06; 13min>
+    Process: 824 ExecStartPre=/usr/libexec/mysql-check-socket (code=ex>
+    Process: 882 ExecStartPre=/usr/libexec/mysql-prepare-db-dir mysqld>
+   Main PID: 938 (mysqld)
+     Status: "Server is operational"
+      Tasks: 37 (limit: 22835)
+     Memory: 450.2M (peak: 452.2M)
+
+mysql --version
+mysql  Ver 8.0.45 for Linux on x86_64 (Source distribution)
+
+
+find / -name ".env" 2>/dev/null
+/var/www/tracker.madinamaritime.com/.env
+/var/www/madina-bulk-erp/backend/.env
+[madina@ip-17*-**-12-**5 ~]$
+
+
+ sudo crontab -u apache -l
+sudo crontab -u root -l
+[sudo] password for madina:
+no crontab for apache
+* * * * * /bin/php /var/www/backend.madinamaritime.com/backend/artisan devices:fetch-location
+
+ ls /etc/cron.d
+0hourly
+[madina@ip-17*-**-12-**5 ~]$
+
+$ systemctl | grep queue
+  dev-mqueue.mount                                                  loaded active mounted   POSIX Message Queue File System
+[madina@ip-17*-**-12-**5 ~]$ systemctl | grep worker
+[madina@ip-17*-**-12-**5 ~]$ systemctl | grep supervisor
+  supervisord.service                                               loaded active running   Supervisor daemon
+[madina@ip-17*-**-12-**5 ~]
+ps aux | grep artisan
+madina    544094  0.0  0.0   6416  2296 pts/0    S+   17:07   0:00 grep --color=auto artisan
+
+sudo firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: eth0
+  sources:
+  services: cockpit dhcpv6-client http https mysql ssh
+  ports:
+  protocols:
+  forward: yes
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+[madina@ip-17*-**-12-**5 ~]$
+
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+operator:x:11:0:operator:/root:/sbin/nologin
+games:x:12:100:games:/usr/games:/sbin/nologin
+ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin
+nobody:x:65534:65534:Kernel Overflow User:/:/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/sbin/nologin
+dbus:x:81:81:System message bus:/:/sbin/nologin
+tss:x:59:59:Account used for TPM access:/:/usr/sbin/nologin
+polkitd:x:998:998:User for polkitd:/:/sbin/nologin
+sssd:x:997:997:User for sssd:/:/sbin/nologin
+rpc:x:32:32:Rpcbind Daemon:/var/lib/rpcbind:/sbin/nologin
+setroubleshoot:x:996:996:SELinux troubleshoot server:/var/lib/setroubleshoot:/usr/sbin/nologin
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+sshd:x:74:74:Privilege-separated SSH:/usr/share/empty.sshd:/usr/sbin/nologin
+chrony:x:995:995:chrony system user:/var/lib/chrony:/sbin/nologin
+rocky:x:1000:1000:rocky Cloud User:/home/rocky:/bin/bash
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+nginx:x:994:994:Nginx web server:/var/lib/nginx:/sbin/nologin
+mysql:x:27:27:MySQL Server:/var/lib/mysql:/sbin/nologin
+redis:x:993:993:Redis Database Server:/var/lib/redis:/sbin/nologin
+madina:x:1001:1001::/home/madina:/bin/bash
+[madina@ip-17*-**-12-**5 ~]$
+ls -la ~/.ssh
+ls: cannot access '/home/madina/.ssh': No such file or directory
+[madina@ip-17*-**-12-**5 ~]$
+
+ cat ~/.ssh/authorized_keys
+cat: /home/madina/.ssh/authorized_keys: No such file or directory
+[madina@ip-17*-**-12-**5 ~]$
+
+
+sudo nginx -T
+nginx: [warn] conflicting server name "_" on 0.0.0.0:80, ignored
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+# configuration file /etc/nginx/nginx.conf:
+# For more information on configuration, see:
+#   * Official English Documentation: http://nginx.org/en/docs/
+#   * Official Russian Documentation: http://nginx.org/ru/docs/
+
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+# Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    keepalive_timeout   65;
+    types_hash_max_size 4096;
+
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+    # Load modular configuration files from the /etc/nginx/conf.d directory.
+    # See http://nginx.org/en/docs/ngx_core_module.html#include
+    # for more information.
+    include /etc/nginx/conf.d/*.conf;
+
+    server {
+        listen       80;
+        listen       [::]:80;
+        server_name  _;
+        root         /usr/share/nginx/html;
+
+        # Load configuration files for the default server block.
+        include /etc/nginx/default.d/*.conf;
+
+        error_page 404 /404.html;
+        location = /404.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+        }
+    }
+
+# Settings for a TLS enabled server.
+#
+#    server {
+#        listen       443 ssl http2;
+#        listen       [::]:443 ssl http2;
+#        server_name  _;
+#        root         /usr/share/nginx/html;
+#
+#        ssl_certificate "/etc/pki/nginx/server.crt";
+#        ssl_certificate_key "/etc/pki/nginx/private/server.key";
+#        ssl_session_cache shared:SSL:1m;
+#        ssl_session_timeout  10m;
+#        ssl_ciphers PROFILE=SYSTEM;
+#        ssl_prefer_server_ciphers on;
+#
+#        # Load configuration files for the default server block.
+#        include /etc/nginx/default.d/*.conf;
+#
+#        error_page 404 /404.html;
+#            location = /40x.html {
+#        }
+#
+#        error_page 500 502 503 504 /50x.html;
+#            location = /50x.html {
+#        }
+#    }
+
+}
+
+
+# configuration file /etc/nginx/mime.types:
+
+types {
+    text/html                                        html htm shtml;
+    text/css                                         css;
+    text/xml                                         xml;
+    image/gif                                        gif;
+    image/jpeg                                       jpeg jpg;
+    application/javascript                           js;
+    application/atom+xml                             atom;
+    application/rss+xml                              rss;
+
+    text/mathml                                      mml;
+    text/plain                                       txt;
+    text/vnd.sun.j2me.app-descriptor                 jad;
+    text/vnd.wap.wml                                 wml;
+    text/x-component                                 htc;
+
+    image/png                                        png;
+    image/svg+xml                                    svg svgz;
+    image/tiff                                       tif tiff;
+    image/vnd.wap.wbmp                               wbmp;
+    image/webp                                       webp;
+    image/x-icon                                     ico;
+    image/x-jng                                      jng;
+    image/x-ms-bmp                                   bmp;
+
+    font/woff                                        woff;
+    font/woff2                                       woff2;
+
+    application/java-archive                         jar war ear;
+    application/json                                 json;
+    application/mac-binhex40                         hqx;
+    application/msword                               doc;
+    application/pdf                                  pdf;
+    application/postscript                           ps eps ai;
+    application/rtf                                  rtf;
+    application/vnd.apple.mpegurl                    m3u8;
+    application/vnd.google-earth.kml+xml             kml;
+    application/vnd.google-earth.kmz                 kmz;
+    application/vnd.ms-excel                         xls;
+    application/vnd.ms-fontobject                    eot;
+    application/vnd.ms-powerpoint                    ppt;
+    application/vnd.oasis.opendocument.graphics      odg;
+    application/vnd.oasis.opendocument.presentation  odp;
+    application/vnd.oasis.opendocument.spreadsheet   ods;
+    application/vnd.oasis.opendocument.text          odt;
+    application/vnd.openxmlformats-officedocument.presentationml.presentation
+                                                     pptx;
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+                                                     xlsx;
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                                                     docx;
+    application/vnd.wap.wmlc                         wmlc;
+    application/x-7z-compressed                      7z;
+    application/x-cocoa                              cco;
+    application/x-java-archive-diff                  jardiff;
+    application/x-java-jnlp-file                     jnlp;
+    application/x-makeself                           run;
+    application/x-perl                               pl pm;
+    application/x-pilot                              prc pdb;
+    application/x-rar-compressed                     rar;
+    application/x-redhat-package-manager             rpm;
+    application/x-sea                                sea;
+    application/x-shockwave-flash                    swf;
+    application/x-stuffit                            sit;
+    application/x-tcl                                tcl tk;
+    application/x-x509-ca-cert                       der pem crt;
+    application/x-xpinstall                          xpi;
+    application/xhtml+xml                            xhtml;
+    application/xspf+xml                             xspf;
+    application/zip                                  zip;
+
+    application/octet-stream                         bin exe dll;
+    application/octet-stream                         deb;
+    application/octet-stream                         dmg;
+    application/octet-stream                         iso img;
+    application/octet-stream                         msi msp msm;
+
+    audio/midi                                       mid midi kar;
+    audio/mpeg                                       mp3;
+    audio/ogg                                        ogg;
+    audio/x-m4a                                      m4a;
+    audio/x-realaudio                                ra;
+
+    video/3gpp                                       3gpp 3gp;
+    video/mp2t                                       ts;
+    video/mp4                                        mp4;
+    video/mpeg                                       mpeg mpg;
+    video/quicktime                                  mov;
+    video/webm                                       webm;
+    video/x-flv                                      flv;
+    video/x-m4v                                      m4v;
+    video/x-mng                                      mng;
+    video/x-ms-asf                                   asx asf;
+    video/x-ms-wmv                                   wmv;
+    video/x-msvideo                                  avi;
+}
+
+# configuration file /etc/nginx/conf.d/madina.conf:
+server {
+    listen 80;
+    server_name _;
+
+    # Proxy backend API. Incoming path /backend/... is rewritten to /... for Laravel.
+    location ^~ /backend/ {
+        rewrite ^/backend/(.*)$ /$1 break;
+        proxy_pass http://127.0.0.1:8000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Forwarded-Prefix /backend;
+        proxy_redirect off;
+        proxy_buffering off;
+    }
+
+    # Proxy frontend SPA under /frontend/
+    location ^~ /frontend/ {
+        rewrite ^/frontend/(.*)$ /$1 break;
+        proxy_pass http://127.0.0.1:3000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Forwarded-Prefix /frontend;
+        proxy_redirect off;
+        proxy_buffering off;
+    }
+
+    # Serve SPA at /
+    location / {
+        proxy_pass http://127.0.0.1:3000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Forwarded-Prefix /;
+        proxy_redirect off;
+        proxy_buffering off;
+    }
+
+    # Healthcheck
+    location = /healthz {
+        add_header Content-Type text/plain;
+        return 200 'OK';
+    }
+}
+
+# configuration file /etc/nginx/conf.d/php-fpm.conf:
+# PHP-FPM FastCGI server
+# network or unix domain socket configuration
+
+upstream php-fpm {
+        server unix:/run/php-fpm/www.sock;
+}
+
+# configuration file /etc/nginx/default.d/php.conf:
+# pass the PHP scripts to FastCGI server
+#
+# See conf.d/php-fpm.conf for socket configuration
+#
+index index.php index.html index.htm;
+
+location ~ \.php$ {
+    try_files $uri =404;
+    fastcgi_intercept_errors on;
+    fastcgi_index  index.php;
+    include        fastcgi_params;
+    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+    fastcgi_pass   php-fpm;
+}
+
+# configuration file /etc/nginx/fastcgi_params:
+
+fastcgi_param  QUERY_STRING       $query_string;
+fastcgi_param  REQUEST_METHOD     $request_method;
+fastcgi_param  CONTENT_TYPE       $content_type;
+fastcgi_param  CONTENT_LENGTH     $content_length;
+
+fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;
+fastcgi_param  REQUEST_URI        $request_uri;
+fastcgi_param  DOCUMENT_URI       $document_uri;
+fastcgi_param  DOCUMENT_ROOT      $document_root;
+fastcgi_param  SERVER_PROTOCOL    $server_protocol;
+fastcgi_param  REQUEST_SCHEME     $scheme;
+fastcgi_param  HTTPS              $https if_not_empty;
+
+fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;
+fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;
+
+fastcgi_param  REMOTE_ADDR        $remote_addr;
+fastcgi_param  REMOTE_PORT        $remote_port;
+fastcgi_param  SERVER_ADDR        $server_addr;
+fastcgi_param  SERVER_PORT        $server_port;
+fastcgi_param  SERVER_NAME        $server_name;
+
+# PHP only, required if PHP was built with --enable-force-cgi-redirect
+fastcgi_param  REDIRECT_STATUS    200;
+
+pm2 list
+-bash: pm2: command not found
+[madina@ip-17*-**-12-**5 ~]$
+
+
+]$ lscpu
+Architecture:                x86_64
+  CPU op-mode(s):            32-bit, 64-bit
+  Address sizes:             46 bits physical, 48 bits virtual
+  Byte Order:                Little Endian
+CPU(s):                      2
+  On-line CPU(s) list:       0,1
+Vendor ID:                   GenuineIntel
+  Model name:                Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz
+    CPU family:              6
+    Model:                   79
+    Thread(s) per core:      1
+    Core(s) per socket:      2
+    Socket(s):               1
+    Stepping:                1
+    BogoMIPS:                4599.99
+    Flags:                   fpu vme de pse tsc msr pae mce cx8 apic se
+                             p mtrr pge mca cmov pat pse36 clflush mmx
+                             fxsr sse sse2 ht syscall nx rdtscp lm cons
+                             tant_tsc rep_good nopl xtopology cpuid tsc
+                             _known_freq pni pclmulqdq ssse3 fma cx16 p
+                             cid sse4_1 sse4_2 x2apic movbe popcnt tsc_
+                             deadline_timer aes xsave avx f16c rdrand h
+                             ypervisor lahf_lm abm pti fsgsbase bmi1 av
+                             x2 smep bmi2 erms invpcid xsaveopt
+Virtualization features:
+  Hypervisor vendor:         Xen
+  Virtualization type:       full
+Caches (sum of all):
+  L1d:                       64 KiB (2 instances)
+  L1i:                       64 KiB (2 instances)
+  L2:                        512 KiB (2 instances)
+  L3:                        45 MiB (1 instance)
+NUMA:
+  NUMA node(s):              1
+  NUMA node0 CPU(s):         0,1
+Vulnerabilities:
+  Gather data sampling:      Not affected
+  Indirect target selection: Mitigation; Aligned branch/return thunks
+  Itlb multihit:             KVM: Mitigation: VMX unsupported
+  L1tf:                      Mitigation; PTE Inversion
+  Mds:                       Vulnerable: Clear CPU buffers attempted, n
+                             o microcode; SMT Host state unknown
+  Meltdown:                  Mitigation; PTI
+  Mmio stale data:           Vulnerable: Clear CPU buffers attempted, n
+                             o microcode; SMT Host state unknown
+  Reg file data sampling:    Not affected
+  Retbleed:                  Not affected
+  Spec rstack overflow:      Not affected
+  Spec store bypass:         Vulnerable
+  Spectre v1:                Mitigation; usercopy/swapgs barriers and _
+                             _user pointer sanitization
+  Spectre v2:                Mitigation; Retpolines; STIBP disabled; RS
+                             B filling; PBRSB-eIBRS Not affected; BHI R
+                             etpoline
+  Srbds:                     Not affected
+  Tsa:                       Not affected
+  Tsx async abort:           Not affected
+  Vmscape:                   Not affected
+[madina@ip-17*-**-12-**5 ~]$
+
+docker system df
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          1         0         13.18GB   1.291GB (9%)
+Containers      0         0         0B        0B
+Local Volumes   0         0         0B        0B
+Build Cache     131       0         13.78GB   12.49GB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
